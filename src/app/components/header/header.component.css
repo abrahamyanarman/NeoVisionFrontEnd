@@ -1,0 +1,7 @@
+
+.customFlexContainer {
+  display: flex;
+  justify-content: space-between;
+  height: 0%;
+  align-content: center;
+}

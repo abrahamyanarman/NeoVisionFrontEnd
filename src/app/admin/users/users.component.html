@@ -1,0 +1,28 @@
+<ng-container *ngIf="isReady">
+  <mat-card-header>
+    <button mat-stroked-button routerLink="../">Back</button>
+  </mat-card-header>
+  <table  style="text-align: center;width: 50%">
+    <tr>
+      <th mat-header-cell>username</th>
+      <th mat-header-cell>first name</th>
+      <th mat-header-cell>last name</th>
+      <th mat-header-cell>authorities</th>
+      <th mat-header-cell>mail</th>
+      <th mat-header-cell>enabled</th>
+      <th mat-header-cell>active</th>
+      <th mat-header-cell></th>
+    </tr>
+    <tr *ngFor="let user of users">
+      <td mat-cell>{{user.username}}</td>
+      <td mat-cell>{{user.firstName}}</td>
+      <td mat-cell>{{user.lastName}}</td>
+      <td mat-cell>{{user.authorities}}</td>
+      <td mat-cell>{{user.email}}</td>
+      <td mat-cell>{{user.enabled? 'yes': 'no'}}</td>
+      <td mat-cell>{{user.activated? 'yes': 'no'}}</td>
+      <td mat-cell><button mat-icon-button><i class="material-icons" (click)="editUser(user.userId)">edit</i></button></td>
+      <td mat-cell><button mat-icon-button><i class="material-icons" (click)="deleteUser(user.userId)">delete</i></button></td>
+    </tr>
+  </table>
+</ng-container>

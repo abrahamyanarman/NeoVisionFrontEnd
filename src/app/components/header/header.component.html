@@ -1,0 +1,58 @@
+
+<header class="bg-info">
+<mat-toolbar style="background: none">
+  <span>My Application</span>
+  <div class="d-flex justify-content-end " style="width: 100%" *ngIf="!isAdmin&&userIsLogined">
+  <button mat-button [matMenuTriggerFor]="account" >Account</button>
+
+  <mat-menu #account="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="profile">My Profile</button>
+    <button mat-menu-item [matMenuTriggerFor]="myloans">My Loans</button>
+    <logout-button (click)="userIsLogined=false"></logout-button>
+  </mat-menu>
+
+  <mat-menu #profile="matMenu">
+    <button mat-menu-item>Profile</button>
+    <button mat-menu-item (click)="setEditModeTrue()">Edit Profile Information</button>
+    <button mat-menu-item>Profile Settings</button>
+  </mat-menu>
+
+  <mat-menu #myloans="matMenu">
+    <button mat-menu-item>See My Loans</button>
+    <button mat-menu-item>Request New Loan</button>
+  </mat-menu>
+
+
+  </div>
+  <div class="d-flex justify-content-end " style="width: 100%" *ngIf="isAdmin&&userIsLogined">
+    <button mat-button [matMenuTriggerFor]="account" >Menu</button>
+
+    <mat-menu #account="matMenu">
+      <button mat-menu-item [matMenuTriggerFor]="profile">My Profile</button>
+      <button mat-menu-item [matMenuTriggerFor]="loanrequests">Loan Requests</button>
+      <button mat-menu-item [matMenuTriggerFor]="loantypes">Loan Types</button>
+      <button mat-menu-item >Users</button>
+      <logout-button (click)="userIsLogined=false"></logout-button>
+    </mat-menu>
+
+    <mat-menu #profile="matMenu">
+      <button mat-menu-item>Profile</button>
+      <button mat-menu-item>Edit Profile Information</button>
+      <button mat-menu-item>Profile Settings</button>
+    </mat-menu>
+
+    <mat-menu #loanrequests="matMenu">
+      <button mat-menu-item>Profile</button>
+      <button mat-menu-item>Edit Profile Information</button>
+      <button mat-menu-item>Profile Settings</button>
+    </mat-menu>
+
+    <mat-menu #loantypes="matMenu">
+      <button mat-menu-item>See My Loans</button>
+      <button mat-menu-item>Request New Loan</button>
+    </mat-menu>
+
+
+  </div>
+</mat-toolbar>
+</header>

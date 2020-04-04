@@ -1,0 +1,53 @@
+<div layout="row" layout-wrap style="max-width: 70%;margin: 0 auto; border: 5px solid black">
+  <mat-card style="text-align: center">
+    <mat-card-header>
+      <mat-card-title>Registration</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput placeholder="Username" #username required>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput placeholder="firstName" #firstName required>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput placeholder="lastName" #lastName required>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput placeholder="country" #country required>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput placeholder="address" #address required>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Password" #password required>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput type="password" placeholder="Confirm Password" #confirm_password required>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-content>
+      <mat-form-field>
+        <input matInput type="mail" placeholder="email" #email required>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+    <button mat-stroked-button color="primary"
+            (click)="register(username.value, firstName.value, lastName.value, address.value, country.value, password.value,confirm_password.value, email.value)">Register
+    </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,30 @@
+
+  <mat-card style="text-align: center">
+    <mat-card-header>
+      <mat-card-title>Log in</mat-card-title>
+    </mat-card-header>
+
+      <mat-card-content>
+        <mat-error *ngIf="loginCredentials.invalidUser">{{loginCredentials.invalidUser}}</mat-error>
+        <mat-form-field >
+          <input matInput placeholder="UserName" #username required>
+        </mat-form-field>
+        <mat-error *ngIf="loginCredentials.loginMessage">{{loginCredentials.loginMessage}}</mat-error>
+      </mat-card-content>
+    <mat-card-content>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" #password required>
+        </mat-form-field>
+      <mat-error *ngIf="loginCredentials.passwordMessage">{{loginCredentials.passwordMessage}}</mat-error>
+    </mat-card-content>
+    <mat-card-actions style="margin-bottom: 0!important;">
+      <button mat-flat-button color="primary" (click)="login(username.value, password.value)">Log in</button>
+    </mat-card-actions>
+    <mat-card-actions style="display: inline-flex">
+      <button mat-button (click)="openForgotPassword()" style="max-width: 50%">Forgot password?</button> <br>
+      <button mat-stroked-button routerLink="../registration" style="max-width: 50%">Registration</button>
+    </mat-card-actions>
+
+  </mat-card>
+
+

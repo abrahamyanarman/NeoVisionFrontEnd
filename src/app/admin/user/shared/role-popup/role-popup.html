@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Roles</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-select [(ngModel)]="currentRoles" multiple name="all Roles">
+      <mat-option *ngFor="let type of allRoles" [value]="type"> {{type.authority}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="cancel()">cancel</button>
+  <button mat-button (click)="submitChanges()">Ok</button>
+</div>

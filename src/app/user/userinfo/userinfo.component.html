@@ -1,0 +1,124 @@
+<div class="container">
+<ng-container>
+  <div class="row " style="padding-top: 10px;padding-bottom: 20px">
+    <div class="col-4 col-md-4 custom-file fileInputProfileWrap">
+
+            <input type="file" (change)="fileChangeEvent($event)" class="fileInputProfile" [disabled]="!isEditMode"
+                   id="phodoEditInput">
+            <div class="img-space">
+
+              <ng-container *ngIf="!(user.photoUri==='none'); else elseTemplate">
+                <img [src]="user.photoUri" />
+              </ng-container>
+              <ng-template #elseTemplate>
+
+                <img src="../../../assets/images/profileDefault.webp" class="img-responsive">
+              </ng-template>
+              <span class="oi oi-pencil imageEditModeBackgroundSpan" *ngIf="isEditMode"></span>
+              <div  class="imageEditModeBackground" *ngIf="isEditMode">
+
+              </div>
+            </div>
+
+
+    </div>
+
+
+
+    <div class="col-8 col-md-8 card border-secondary mb-3">
+
+      <div class="row ">
+      <div class="col-2 card-header" style="border-right: 1px solid rgba(0,0,0,.125);background-color: gainsboro;">First Name</div>
+        <div class="col-{{valueFieldColSize}} card-header" id="{{user.firstName}}">
+          <span [innerHTML]="user.firstName"></span>
+        </div>
+        <div class="col-{{valueFieldColSize}} card-header" id="{{user.firstName}}edit" style="display: none">
+          <input class="form-control" [(ngModel)]="user.firstName">
+        </div>
+        <div class="col-2 card-header" *ngIf="isEditMode" id="{{user.firstName}}editbtn">
+          <button class="btn btn-ghost-success" style="background-color:transparent;padding: 0;" (click)="edit(user.firstName)">
+            <span class="oi oi-pencil"></span>
+          </button>
+        </div>
+        <div class="col-2 card-header" *ngIf="isEditMode" id="{{user.firstName}}successbtn" style="display: none">
+          <button class="btn btn-ghost-success" style="background-color:transparent;padding: 0;" (click)="success(user.firstName)">
+            <span class="oi oi-check" ></span>
+          </button>
+        </div>
+        </div>
+
+      <div class="w-100" style="min-height: 10px"></div>
+      <div class="row ">
+        <div class="col-2 card-header" style="border-right: 1px solid rgba(0,0,0,.125);background-color: gainsboro;">Last Name</div>
+        <div class="col-{{valueFieldColSize}} card-header" id="{{user.lastName}}">
+          <span >{{user.lastName}}</span>
+        </div>
+        <div class="col-{{valueFieldColSize}} card-header" id="{{user.lastName}}edit" style="display: none">
+          <input class="form-control" [(ngModel)]="user.lastName">
+        </div>
+        <div class="col-2 card-header" *ngIf="isEditMode" id="{{user.lastName}}editbtn">
+          <button class="btn btn-ghost-success" style="background-color:transparent;padding: 0;" (click)="edit(user.lastName)">
+            <span class="oi oi-pencil"></span>
+          </button>
+        </div>
+        <div class="col-2 card-header" *ngIf="isEditMode" id="{{user.lastName}}successbtn" style="display: none">
+          <button class="btn btn-ghost-success" style="background-color:transparent;padding: 0;" (click)="success(user.lastName)">
+            <span class="oi oi-check" ></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="w-100 " style="min-height: 10px"></div>
+      <div class="row ">
+        <div class="col-2 card-header" style="border-right: 1px solid rgba(0,0,0,.125);background-color: gainsboro;">User Name</div>
+        <div class="col-{{valueFieldColSize}} card-header" id="{{user.username}}">
+          <span >{{user.username}}</span>
+        </div>
+        <div class="col-{{valueFieldColSize}} card-header" id="{{user.username}}edit" style="display: none">
+          <input class="form-control" [(ngModel)]="user.username">
+        </div>
+        <div class="col-2 card-header" *ngIf="isEditMode" id="{{user.username}}editbtn">
+          <button class="btn btn-ghost-success" style="background-color:transparent;padding: 0;" (click)="edit(user.username)">
+            <span class="oi oi-pencil"></span>
+          </button>
+        </div>
+        <div class="col-2 card-header" *ngIf="isEditMode" id="{{user.username}}successbtn" style="display: none">
+          <button class="btn btn-ghost-success" style="background-color:transparent;padding: 0;" (click)="success(user.username)">
+            <span class="oi oi-check" ></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="w-100" style="min-height: 10px"></div>
+      <div class="row ">
+        <div class="col-2 card-header" style="border-right: 1px solid rgba(0,0,0,.125);background-color: gainsboro;">Email</div>
+        <div class="col-{{valueFieldColSize}} card-header" id="{{user.email}}">
+          <span >{{user.email}}</span>
+        </div>
+        <div class="col-{{valueFieldColSize}} card-header" id="{{user.email}}edit" style="display: none">
+          <input class="form-control" [(ngModel)]="user.email">
+        </div>
+        <div class="col-2 card-header" *ngIf="isEditMode" id="{{user.email}}editbtn">
+          <button class="btn btn-ghost-success" style="background-color:transparent;padding: 0;" (click)="edit(user.email)">
+            <span class="oi oi-pencil"></span>
+          </button>
+        </div>
+        <div class="col-2 card-header" *ngIf="isEditMode" id="{{user.email}}successbtn" style="display: none">
+          <button class="btn btn-ghost-success" style="background-color:transparent;padding: 0;" (click)="success(user.email)">
+            <span class="oi oi-check" ></span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    </div>
+</ng-container>
+  <div  *ngIf="isEditMode" class="changeButtons">
+    <button type="button" class="btn btn-success btn-group mr-2"  (click)="saveChanges()">
+      <span class="oi oi-check">save</span>
+    </button>
+    <button type="button" class="btn btn-warning "  (click)="cancelChanges()">
+      <span class="oi oi-x">cancel</span>
+    </button>
+  </div>
+</div>
