@@ -12,11 +12,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) {
     this.header = new HttpHeaders({
-      'Content-Type': 'application/json',
-      /*'cache-control': 'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
-      'Access-Control-Request-Origin': 'http://localhost:4200',
-      Pragma: 'Pragma',
-      Expires: '0'*/
+      'Content-Type': 'application/json'
     });
   }
 

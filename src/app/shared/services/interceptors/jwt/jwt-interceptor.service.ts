@@ -16,11 +16,13 @@ export class JwtInterceptorService implements HttpInterceptor {
         headers: req.headers.append(
           'Authorization', 'Bearer ' + token
         )
+          .append('Content-Type', 'application/json')
       });
       console.log(req.headers);
       return next.handle(authReq);
     }
 
+    console.log(req.headers);
 
     return next.handle(req);
   }

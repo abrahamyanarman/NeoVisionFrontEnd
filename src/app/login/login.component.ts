@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
   }
 
   public login(email: string, password: string): void {
+    localStorage.clear();
     if (this.validate(email, password)) {
       this.loginService.login(email, password)
         .subscribe(value => {
@@ -49,7 +50,7 @@ export class LoginComponent implements OnInit {
               localStorage.setItem(ApplicationService.me, JSON.stringify(me));
               this.editModeService.initTmpUser(me.id);
 
-              if (me.authorities.find(role => role === 'ROLE_ADMIN')) {
+              if (me.authorities.find(role => role.authority === 'ROLE_ADMIN')) {
               this.navigate('/admin');
               } else {
                 this.navigate('/user/info');
@@ -58,7 +59,10 @@ export class LoginComponent implements OnInit {
               this.loginCredentials.invalidUser = error.error.message;
             });
         }, (error: HttpResponse<any>) => {
-
+          // @ts-ignore
+          console.log(error);
+          // @ts-ignore
+          this.loginCredentials.invalidUser = error.error.message;
         });
     }
   }

@@ -39,4 +39,7 @@ export class DataService {
     return this.http.get<Blob>(ApplicationService.url + 'api/user/getUserPhoto/' + id);
 
   }*/
+  isValid() {
+    return (localStorage.getItem('me') != null || localStorage.getItem('access_token') != null);
+  }
 }

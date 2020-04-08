@@ -29,7 +29,11 @@ export class ResetEmailComponent implements OnInit {
       const email = requestResetForm.get('email').value;
       this.resetService.sendResetPasswordEmail(email).subscribe(value => {
         console.log(value);
+        this.successMessage = value.responseMessage;
+        console.log(this.successMessage);
         this.value = value.message;
+      },error => {
+        console.log(error);
       });
     }
   }

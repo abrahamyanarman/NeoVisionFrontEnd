@@ -1,6 +1,7 @@
 import {RouterModule, Routes} from '@angular/router';
 import {CheckToken} from './shared/guard/checkToken';
 import {WrongUrlComponent} from './wrongurl/wrongurl.component';
+import {AuthGuardServiceService} from "./shared/services/auth-guard-service.service";
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
   {
     path: 'user',
     loadChildren: './user/user.module#UserModule',
+    canActivate: [AuthGuardServiceService]
   },
   {
     path: 'registration',
@@ -23,13 +25,14 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: './admin/admin.module#AdminModule',
+    canActivate: [AuthGuardServiceService]
   },
   {
     path: 'register/confirm/:code',
     loadChildren: './confirm/confirm.module#ConfirmModule'
   },
   {
-    path: 'reset-password/:emailCode',
+    path: 'resetPassword/:emailCode',
     loadChildren: './reset-password/reset-password.module#ResetPasswordModule'
   },
   {

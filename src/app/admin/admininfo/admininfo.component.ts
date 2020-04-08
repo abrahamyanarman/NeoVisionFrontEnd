@@ -1,9 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import {LoginService} from '../../login/shared/login.service';
 import {CookieService} from 'ngx-cookie-service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {BaseComponent} from '../../shared/model/baseComponent';
+import {LoginCredentials} from "../../login/shared/model/loginCredentials";
+import {UserInfo} from "../../shared/model/model/userInfo";
+import {DataService} from "../shared/dataservice";
+import {MatDialog} from "@angular/material/dialog";
+import {EditModeService} from "../../shared/services/edit-mode.service";
+import {DomSanitizer} from "@angular/platform-browser";
+import {RolePopup} from "../user/shared/role-popup/role-popup";
+import {ErrorDialogComponent} from "../../user/shared/dialog/error-dialog/error-dialog.component";
+import * as _ from 'lodash';
 
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 @Component({
   selector: 'app-admininfo',
   templateUrl: './admininfo.component.html',
@@ -11,13 +25,177 @@ import {BaseComponent} from '../../shared/model/baseComponent';
 })
 export class AdminInfoComponent extends BaseComponent implements OnInit {
 
+  imageError: string;
+  isImageSaved: boolean;
+  cardImageBase64: string;
+
+  public isEditMode: boolean;
+  public roles: Array<any>;
+  public isReady = false;
+  public loginCredentials: LoginCredentials;
+  public valueFieldColSize = 10;
+  private tmpUser: UserInfo;
   constructor(private cookieService: CookieService,
-              private route: Router) {
+              private route: Router,
+              private activatedRoute: ActivatedRoute,
+              private dataService: DataService,
+              public dialog: MatDialog,
+              private editModeService: EditModeService,
+              private sanitize: DomSanitizer) {
     super();
+    this.generateUserInfo();
+    this.isEditMode = false;
   }
 
-  ngOnInit(): void {
+  private resetValidations(): void {
+    this.loginCredentials = {
+      loginMessage: '',
+      passwordMessage: '',
+      invalidUser: '',
+      emailMessage: ''
+    };
+  }
+
+  ngOnInit() {
+    if (this.tmpUser === undefined) {
+      this.editModeService.initTmpUser(JSON.parse(localStorage.getItem('me')).id);
+    }
+    this.editModeService.tmpUser.subscribe(tmpUser => {
+      this.tmpUser = tmpUser;
+      console.log('ssss' + tmpUser);
+    });
+    console.log(this.tmpUser);
+    this.editModeService.idEditMode.subscribe(isEditMode => {
+      this.isEditMode = isEditMode;
+      if (isEditMode) {
+        this.valueFieldColSize = 8;
+      } else {
+        this.valueFieldColSize = 10;
+      }
+    });
+
+    this.init();
+  }
+
+  private init(): void {
     this.generateUserInfo();
+    this.isReady = true;
+  }
+
+
+
+
+
+  private openDialog() {
+    const dialogRef = this.dialog.open(RolePopup, {
+      width: '300px',
+      data: {currentRoles: this.user.authorities, allRoles: this.roles}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.user.authorities = result;
+        this.generateUserRoles();
+      }
+    });
+  }
+
+
+  saveChanges() {
+    console.log(this.user);
+    this.dataService.saveUser(this.user).subscribe(userInfo => {
+
+      console.log(userInfo);
+      this.user = userInfo;
+
+      this.editModeService.tmpUser.next(userInfo);
+    }, error => {
+      const dialogRef = this.dialog.open(ErrorDialogComponent, {
+        width: '250px',
+        data: {name: 'Error', message: 'Something went wrong, please try again!'}
+      });
+    });
+    this.editModeService.setEditModeFalse();
+  }
+
+  edit(id: string) {
+    document.getElementById(id).style.display = 'none';
+    document.getElementById(id + 'edit').style.display = 'block';
+    document.getElementById(id + 'editbtn').style.display = 'none';
+    document.getElementById(id + 'successbtn').style.display = 'block';
+    document.getElementById('phodoEditInput').style.background = 'url("../../../assets/images/editImage.png") no-repeat';
+  }
+
+  success(id: string) {
+    document.getElementById(id).style.display = 'block';
+    document.getElementById(id + 'edit').style.display = 'none';
+    document.getElementById(id + 'editbtn').style.display = 'block';
+    document.getElementById(id + 'successbtn').style.display = 'none';
+  }
+
+  cancelChanges() {
+    this.isImageSaved = false;
+    this.editModeService.setEditModeFalse();
+    this.editModeService.initTmpUser(JSON.parse(localStorage.getItem('me')).id);
+    console.log(this.isEditMode);
+    console.log(this.user);
+    console.log(this.tmpUser);
+    this.user = this.tmpUser;
+  }
+
+
+  fileChangeEvent(fileInput: any) {
+    this.imageError = null;
+    if (fileInput.target.files && fileInput.target.files[0]) {
+      // Size Filter Bytes
+      // tslint:disable-next-line:variable-name
+      const max_size = 20971520;
+      // tslint:disable-next-line:variable-name
+      const allowed_types = ['image/png', 'image/jpeg'];
+      // tslint:disable-next-line:variable-name
+      const max_height = 15200;
+      // tslint:disable-next-line:variable-name
+      const max_width = 25600;
+
+      if (fileInput.target.files[0].size > max_size) {
+        this.imageError =
+          'Maximum size allowed is ' + max_size / 1000 + 'Mb';
+
+        return false;
+      }
+
+      if (!_.includes(allowed_types, fileInput.target.files[0].type)) {
+        this.imageError = 'Only Images are allowed ( JPG | PNG )';
+        return false;
+      }
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const image = new Image();
+        image.src = e.target.result;
+        image.onload = rs => {
+
+          const elem = document.createElement('canvas');
+          elem.width = 219;
+          elem.height = 230;
+          const ctx = elem.getContext('2d');
+          ctx.drawImage(image, 0, 0, 219, 230);
+          const data = ctx.canvas.toDataURL();
+          this.cardImageBase64 = data;
+
+          this.isImageSaved = true;
+
+          this.user.photoUri = this.cardImageBase64;
+        };
+      };
+
+      reader.readAsDataURL(fileInput.target.files[0]);
+    }
+  }
+
+
+  removeImage() {
+    this.cardImageBase64 = null;
+    this.isImageSaved = false;
   }
 
 
