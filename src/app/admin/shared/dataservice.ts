@@ -42,4 +42,8 @@ export class DataService {
   isValid() {
     return (localStorage.getItem('me') != null || localStorage.getItem('access_token') != null);
   }
+
+  activateUser(emailCode: string): Observable<any> {
+    return this.http.post<any>(ApplicationService.url + 'api/user/activateProfile?emailCode=' + emailCode, null);
+  }
 }

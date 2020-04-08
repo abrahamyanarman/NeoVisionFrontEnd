@@ -25,13 +25,16 @@ import {EditModeService} from "./shared/services/edit-mode.service";
 import {DataService} from "./admin/shared/dataservice";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
+import { ActivateProfileComponent } from './components/activate-profile/activate-profile.component';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 
 @NgModule({
   declarations: [
     AppComponent,
     WrongUrlComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ActivateProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import {MatFormFieldModule} from "@angular/material/form-field";
     MatMenuModule,
     SharedModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     ApplicationService,

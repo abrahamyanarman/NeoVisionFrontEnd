@@ -2,6 +2,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {CheckToken} from './shared/guard/checkToken';
 import {WrongUrlComponent} from './wrongurl/wrongurl.component';
 import {AuthGuardServiceService} from "./shared/services/auth-guard-service.service";
+import {ActivateProfileComponent} from "./components/activate-profile/activate-profile.component";
 
 const routes: Routes = [
   {
@@ -38,6 +39,10 @@ const routes: Routes = [
   {
     path: 'reset-email',
     loadChildren: './reset-email/reset-email.module#ResetEmailModule'
+  },
+  {
+    path: 'activateProfile/:emailCode',
+    component: ActivateProfileComponent
   },
   {
     path: '**',

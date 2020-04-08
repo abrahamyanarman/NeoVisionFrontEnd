@@ -12,17 +12,18 @@ export class RegistrationService {
   constructor(private http: HttpClient, private applicationService: ApplicationService) {
     this.header = new HttpHeaders({'Content-Type': 'application/json'});
   }
-  public register(username: string, firstName: string, lastName: string, address: string, country: string, password: string, email: string): Observable<Response> {
+  public register(username: string, firstName: string, lastName: string, password: string, email: string, photoUri: string): Observable<Response> {
      const user = {
-       userName: username,
+       username,
        password,
+       repasword: password,
        email,
        firstName,
        lastName,
-       address,
-       country
+       photoUri,
+       roles: [1]
      };
-     return this.http.post(ApplicationService.url + 'register/user', JSON.stringify(user),
+     return this.http.post(ApplicationService.url + 'api/user/register', JSON.stringify(user),
             {headers: this.header});
   }
 }

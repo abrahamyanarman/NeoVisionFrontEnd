@@ -5,6 +5,7 @@ import {AngularMaterialModule} from '../shared/material.module';
 import {RegistrationService} from './shared/registration.service';
 import {CommonModule} from '@angular/common';
 import {SharedModule} from '../shared/shared.module';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import {SharedModule} from '../shared/shared.module';
     RegistrationRouting,
     AngularMaterialModule,
     CommonModule,
-    SharedModule
+    SharedModule,
+    FormsModule
   ],
   providers: [RegistrationService]
 })
