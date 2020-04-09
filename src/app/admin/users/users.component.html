@@ -1,3 +1,4 @@
+<mat-spinner *ngIf="!isReady" style="margin: 0 auto;"></mat-spinner>
 <ng-container *ngIf="isReady">
   <mat-card-header>
     <button mat-stroked-button routerLink="../">Back</button>
@@ -10,7 +11,6 @@
       <th mat-header-cell>authorities</th>
       <th mat-header-cell>mail</th>
       <th mat-header-cell>enabled</th>
-      <th mat-header-cell>active</th>
       <th mat-header-cell></th>
     </tr>
     <tr *ngFor="let user of users">
@@ -19,10 +19,17 @@
       <td mat-cell>{{user.lastName}}</td>
       <td mat-cell>{{user.authorities}}</td>
       <td mat-cell>{{user.email}}</td>
-      <td mat-cell>{{user.enabled? 'yes': 'no'}}</td>
-      <td mat-cell>{{user.activated? 'yes': 'no'}}</td>
-      <td mat-cell><button mat-icon-button><i class="material-icons" (click)="editUser(user.userId)">edit</i></button></td>
-      <td mat-cell><button mat-icon-button><i class="material-icons" (click)="deleteUser(user.userId)">delete</i></button></td>
+      <td mat-cell>
+          <mat-slide-toggle
+            class="example-margin"
+            color="accent"
+            [checked]="user.enabled"
+            [disabled]="!user.enabled"
+          (change)="onEnableSlideTogleChange($event,user.id)">
+          </mat-slide-toggle>
+      </td>
+      <td mat-cell><button mat-icon-button><i class="material-icons" (click)="editUser(user.id)">edit</i></button></td>
+      <td mat-cell><button mat-icon-button><i class="material-icons" (click)="deleteUser(user.id)">delete</i></button></td>
     </tr>
   </table>
 </ng-container>

@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {DataService} from '../shared/dataservice';
 import {Router} from '@angular/router';
 import {ConfirmDialog} from '../../shared/popup/confirm.dialog/confirm.dialog';
 import {MatDialog} from '@angular/material';
 import {User} from '../../shared/model/User';
+import {UserInfo} from "../../shared/model/model/userInfo";
+import {MatSlideToggleChange} from "@angular/material/slide-toggle";
+import {FormControl} from "@angular/forms";
 
 @Component({
   selector: 'app-users',
@@ -12,46 +15,53 @@ import {User} from '../../shared/model/User';
 })
 export class UsersComponent implements OnInit {
   public isReady: boolean;
-  public users: Array<User>;
+  public users: Array<UserInfo>;
+  private enabled  = new FormControl();
 
   constructor(private dataService: DataService,
               private router: Router,
               public dialog: MatDialog) {
     this.isReady = false;
+    this.users = new Array<UserInfo>();
   }
 
   ngOnInit() {
     this.dataService.getAllUsers()
       .subscribe((value: any) => {
-        this.users = value;
+        value.forEach((user: UserInfo) => {
+          if (user.id !== JSON.parse(localStorage.getItem('me')).id) {
+            this.users.push(user);
+          }
+        });
+
         this.initRoles();
         this.isReady = true;
-      })
+      });
   }
 
   private initRoles() {
     if (this.users) {
       this.users.forEach(user => {
-        let roles = user.authorities;
+        const roles = user.authorities;
         if (roles) {
           // @ts-ignore
-          user.roles = roles.map(role => role).join(', ');
+          user.authorities = roles.map(role => role.authority).join(', ');
 
         }
-      })
+      });
     }
   }
 
 
-  public editUser(id: string) {
-    this.router.navigate(['/admin/user',id]);
+  public editUser(id: number) {
+    this.router.navigate(['/admin/user', id]);
   }
 
-  public deleteUser(userId: string) {
+  public deleteUser(userId: number) {
     this.openDeleteDialog(userId);
   }
 
-  private openDeleteDialog(userId: string){
+  private openDeleteDialog(userId: number){
     const dialogRef = this.dialog.open(ConfirmDialog, {
       width: '300px',
       height: '220px'
@@ -65,6 +75,26 @@ export class UsersComponent implements OnInit {
             console.log(error);
           } );
       }
+    });
+  }
+
+  onEnableSlideTogleChange(event: MatSlideToggleChange, id: number) {
+    if (event.checked) {
+      this.activateUser(id);
+    } else {
+      this.deactivateUser(id);
+    }
+  }
+
+  activateUser(id: number) {
+    this.dataService.acticateUserById(id).subscribe(value => {
+      console.log(value);
+    });
+  }
+
+  deactivateUser(id: number) {
+    this.dataService.deacticateUserById(id).subscribe(value => {
+      console.log(value);
     });
   }
 }

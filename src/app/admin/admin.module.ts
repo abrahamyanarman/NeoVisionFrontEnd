@@ -8,10 +8,12 @@ import {AngularMaterialModule} from '../shared/material.module';
 import {DataService} from './shared/dataservice';
 import {CommonModule} from '@angular/common';
 import { UserComponent } from './user/user.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RolePopup} from './user/shared/role-popup/role-popup';
 import {RegistrationService} from '../registration/shared/registration.service';
 import {CdkColumnDef} from '@angular/cdk/table';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 @NgModule({
   declarations: [
@@ -26,7 +28,10 @@ import {CdkColumnDef} from '@angular/cdk/table';
     SharedModule,
     AngularMaterialModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    MatProgressSpinnerModule,
+    MatSlideToggleModule,
+    ReactiveFormsModule
   ],
   entryComponents: [
     RolePopup

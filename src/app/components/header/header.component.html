@@ -31,7 +31,7 @@
       <button mat-menu-item [matMenuTriggerFor]="profile">My Profile</button>
       <button mat-menu-item [matMenuTriggerFor]="loanrequests">Loan Requests</button>
       <button mat-menu-item [matMenuTriggerFor]="loantypes">Loan Types</button>
-      <button mat-menu-item >Users</button>
+      <button mat-menu-item  (click)="router.navigateByUrl('/admin/users')">Users</button>
       <logout-button (click)="userIsLogined=false"></logout-button>
     </mat-menu>
 

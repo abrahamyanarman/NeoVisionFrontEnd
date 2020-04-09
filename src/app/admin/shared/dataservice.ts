@@ -16,7 +16,7 @@ export class DataService {
   }
 
   public getAllUsers(): Observable<any> {
-    return this.http.get(ApplicationService.url + 'user/allusers');
+    return this.http.get<any>(ApplicationService.url + 'api/user/getAll');
   }
 
   public getUserById(id: string): Observable<UserInfo> {
@@ -45,5 +45,12 @@ export class DataService {
 
   activateUser(emailCode: string): Observable<any> {
     return this.http.post<any>(ApplicationService.url + 'api/user/activateProfile?emailCode=' + emailCode, null);
+  }
+
+  acticateUserById(id: number): Observable<any> {
+    return this.http.post<any>(ApplicationService.url + 'api/user/activateProfileById/' + id, null);
+  }
+  deacticateUserById(id: number): Observable<any> {
+    return this.http.post<any>(ApplicationService.url + 'api/user/deactivateProfileById/' + id, null);
   }
 }
