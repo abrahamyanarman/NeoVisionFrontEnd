@@ -161,7 +161,9 @@
               </div>
             </div>
           </div>
-          <div class="row"></div>
+          <div class="row">
+            <app-pie-chart [totalInterest] = "getTotalPayedInterest()" [totalPrincipal]="loanAmount"></app-pie-chart>
+          </div>
         </div>
       </div>
 </div>

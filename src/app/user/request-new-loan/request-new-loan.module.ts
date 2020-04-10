@@ -10,10 +10,12 @@ import {MatButtonModule} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatSliderModule} from "@angular/material/slider";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import {NgApexchartsModule} from "ng-apexcharts";
 
 
 @NgModule({
-  declarations: [RequestNewLoanComponent],
+  declarations: [RequestNewLoanComponent, PieChartComponent],
   imports: [
     CommonModule,
     RequestNewLoanRouting,
@@ -24,7 +26,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     ReactiveFormsModule,
     MatSliderModule,
     FormsModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    NgApexchartsModule
   ]
 })
 export class RequestNewLoanModule { }

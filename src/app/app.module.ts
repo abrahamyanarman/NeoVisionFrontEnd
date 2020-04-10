@@ -27,6 +27,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import { ActivateProfileComponent } from './components/activate-profile/activate-profile.component';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {NgApexchartsModule} from "ng-apexcharts";
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     CommonModule,
     AppRouting,
     FormsModule,
+    NgApexchartsModule,
 
     // AngularMaterialModule,
     BrowserAnimationsModule,

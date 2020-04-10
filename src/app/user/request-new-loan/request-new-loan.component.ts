@@ -56,7 +56,6 @@ export class RequestNewLoanComponent implements OnInit {
   getLoanMonthlyPaymentWithUniformPayments(loanAmount: number, loanIntrest: number, loanTerm: number){
     this.loanService.getLoanMonthlyPaymentWithUniformPayments(loanAmount, loanIntrest, loanTerm)
       .subscribe(value => {
-        console.log(value.monthlyPayment);
         this.loanMonthlyPayment = value.monthlyPayment;
       });
   }
