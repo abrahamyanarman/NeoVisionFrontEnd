@@ -7,6 +7,9 @@ import {ComboBoxModule} from "@syncfusion/ej2-angular-dropdowns";
 import {ToolbarModule} from "@syncfusion/ej2-angular-navigations";
 import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatSliderModule} from "@angular/material/slider";
+import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 
 
 @NgModule({
@@ -17,7 +20,11 @@ import {MatButtonModule} from "@angular/material/button";
     ComboBoxModule,
     ToolbarModule,
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatSliderModule,
+    FormsModule,
+    MatSlideToggleModule
   ]
 })
 export class RequestNewLoanModule { }

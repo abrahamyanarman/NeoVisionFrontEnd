@@ -1,20 +1,189 @@
-<mdb-card>
-  <!--Card image-->
-  <mdb-card-img src="https://mdbootstrap.com/img/Photos/Lightbox/Thumbnail/img%20(97).jpg" alt="Card image cap"></mdb-card-img>
-  <!--Card content-->
-  <mdb-card-body>
+<div class = "d-flex justify-content-center" id="accordionExample">
+<div class="card" style="width: 18rem; margin: 1%" id="headingOne">
+  <img class="card-img-top" src="../../../assets/images/profileDefault.webp" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">Unsecured personal loans</h5>
+    <p class="card-text">Personal loans are used for a variety of reasons,you’re not putting collateral like
+      a home or car on the line in case you default on your loan.</p>
+    <button class="btn btn-primary"  data-toggle="collapse" data-target="#collapseOne"
+            aria-expanded="true" aria-controls="collapseOne">Calculate</button>
+  </div>
 
-    <!--Title-->
-    <mdb-card-title>
-      <h4>Card Title</h4>
-    </mdb-card-title>
+</div>
 
-    <!--Text-->
-    <mdb-card-text> Some quick example text to build on the card title and make up the bulk of the card's
-      content.
-    </mdb-card-text>
+  <div class="card" style="width: 18rem;margin: 1%" id="headingTwo">
+    <img class="card-img-top" src="../../../assets/images/profileDefault.webp" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Secured personal loans</h5>
+      <p class="card-text">To get a secured personal loan, you’ll have to offer up some type of collateral,
+        like a car or certificate of deposit, to “secure” your loan.</p>
+      <button class="btn btn-primary" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false"
+              aria-controls="collapseTwo">Calculate</button>
+    </div>
+  </div>
 
-    <a href="#" mdbBtn color="primary" mdbWavesEffect>Button</a>
+  <div class="card" style="width: 18rem;margin: 1%" id="headingThree">
+    <img class="card-img-top" src="../../../assets/images/profileDefault.webp" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">Home equity loans</h5>
+      <p class="card-text">A home equity loan is a type of secured loan where your home
+        is used as collateral to borrow a lump sum of money. </p>
+      <button class="btn btn-primary" data-toggle="collapse" data-target="#collapseThree"
+              aria-expanded="false" aria-controls="collapseThree">Calculate</button>
+    </div>
+  </div>
+</div>
 
-  </mdb-card-body>
-</mdb-card>
+<div class = "d-flex justify-content-center"  style=" margin: 1%">
+  <div id="collapseOne" class="collapse hide" aria-labelledby="headingOne" data-parent="#accordionExample">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-8 border border-secondary rounded">
+          <div class="form-group" style="padding-top: 10px">
+            <div class="col-12">
+              <span class="">Loan Amount</span>
+              <div class="input-group mb-3" style="width:44%;float:right;">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="text" class="form-control" [(ngModel)]="loanAmount"
+                       aria-label="Amount (to the nearest dollar)" (change)="amountChange()">
+                <div class="input-group-append">
+                  <span class="input-group-text">.00</span>
+                </div>
+              </div>
+              <div>
+                <mat-slider
+                  thumbLabel
+                  [displayWith]="formatLabel"
+                  tickInterval="1000"
+                  min="5000"
+                  max="100000" style="width: 100%"
+                  (change)="amountChange()"
+                  [(ngModel)]="loanAmount"></mat-slider>
+              </div>
+            </div>
+
+
+            <hr class="solid">
+
+
+            <div class="col-12">
+              <span class="">Loan Interest</span>
+              <div class="input-group mb-3" style="width:44%;float:right;">
+                <input type="text" class="form-control" [(ngModel)]="loanInterest"
+                       aria-label="Amount (to the nearest dollar)" (change)="interestChange()">
+                <div class="input-group-append">
+                  <span class="input-group-text">%</span>
+                </div>
+              </div>
+              <div>
+                <mat-slider
+                  thumbLabel
+                  [displayWith]="formatInterest"
+                  step="0.1"
+                  min="5"
+                  max="20" style="width: 100%"
+                  (change)="interestChange()"
+                  [(ngModel)]="loanInterest"></mat-slider>
+              </div>
+            </div>
+
+            <hr class="solid">
+
+
+            <div class="col-12">
+              <span class="">Loan Term</span>
+              <div class="input-group mb-3" style="width:44%;float:right;">
+                <input type="text" class="form-control" [(ngModel)]="loanTerm" aria-label="Amount (to the nearest dollar)"
+                (change)="termChange()">
+                <div class="input-group-append">
+                  <span class="input-group-text">{{showMonthly?'M':'Y'}}</span>
+                </div>
+              </div>
+              <div>
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                <span class="input-group-text">M</span>
+                  </div>
+                <mat-slide-toggle
+                  class="example-margin"
+                  color="accent"
+                  [checked]="showMonthly"
+                  (change)="onSliderToggleChange()">
+                </mat-slide-toggle>
+                  <div class="input-group-append">
+                <span class="input-group-text">Y</span>
+                  </div>
+                </div>
+                <mat-slider
+                  thumbLabel
+                  [displayWith]="formatTerm"
+                  step="1"
+                  min="{{showMonthly?'12':'1'}}"
+                  max="{{showMonthly?'240':'20'}}"
+                  (change)="termChange()"
+                  style="width: 100%"
+                  [(ngModel)]="loanTerm"></mat-slider>
+              </div>
+            </div>
+
+            <hr class="solid">
+
+            <div class="col-12">
+              <button type="button" class="btn btn-secondary">Amortization</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-4 border border-secondary rounded">
+          <div class="row">
+            <div class="card" style="width: 100%">
+              <div class="card-header" style="margin: 0 auto;">
+                <div class="col-12">
+                <span>Monthly Payments</span>
+                </div>
+                <div class="col-12" style="font-family: Muli;font-weight: bold;text-align: center;">
+                  <span >${{loanMonthlyPayment}}</span >
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="col-12">
+                  <div class="row justify-content-between">
+                  <div class="d-flex justify-content-sm-start">Total Principal Paid</div>
+                  <div class="d-flex justify-content-sm-end">{{loanAmount}}</div>
+                  </div>
+                  <hr class="solid">
+                  <div class="row justify-content-between">
+                    <div class="d-flex justify-content-sm-start">Total Interest Paid</div>
+                    <div class="d-flex justify-content-sm-end">{{getTotalPayedInterest()}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row"></div>
+        </div>
+      </div>
+</div>
+  </div>
+
+
+  <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+    <div class="card-body">
+      <div class="alert alert-success" role="alert">
+        Coming soon!
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+    <div class="card-body">
+      <div class="alert alert-success" role="alert">
+        Coming soon!
+      </div>
+    </div>
+  </div>
+
+</div>
