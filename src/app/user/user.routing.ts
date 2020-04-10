@@ -10,6 +10,10 @@ const routes: Routes = [
   {
     path: 'info',
     component: UserinfoComponent
+  },
+  {
+    path: 'request-new-loan',
+    loadChildren: './request-new-loan/request-new-loan.module#RequestNewLoanModule'
   }
 ];
 
