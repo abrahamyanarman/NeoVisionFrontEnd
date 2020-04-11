@@ -11,12 +11,14 @@ import { ErrorDialogComponent } from './shared/dialog/error-dialog/error-dialog.
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
+import { MyloansComponent } from './myloans/myloans.component';
 
 @NgModule({
   declarations: [
     UserComponent,
     UserinfoComponent,
-    ErrorDialogComponent],
+    ErrorDialogComponent,
+    MyloansComponent],
   imports: [
     UserRouting,
     SharedModule,

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {CommonModule, DatePipe} from '@angular/common';
 
 import { RequestNewLoanRouting } from './request-new-loan.routing';
-import { RequestNewLoanComponent } from './request-new-loan.component';
+import {DialogDataExampleDialog, RequestNewLoanComponent} from './request-new-loan.component';
 import {ComboBoxModule} from "@syncfusion/ej2-angular-dropdowns";
 import {ToolbarModule} from "@syncfusion/ej2-angular-navigations";
 import {MatCardModule} from "@angular/material/card";
@@ -20,7 +20,7 @@ import {MatInputModule} from "@angular/material/input";
 
 
 @NgModule({
-  declarations: [RequestNewLoanComponent, PieChartComponent],
+  declarations: [RequestNewLoanComponent, PieChartComponent,DialogDataExampleDialog],
   imports: [
     CommonModule,
     RequestNewLoanRouting,
