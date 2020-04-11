@@ -1,0 +1,12 @@
+table {
+  width: 100%;
+}
+.success{
+  background-color: darkgreen;
+}
+.waiting{
+  background-color: peru;
+}
+.canceled{
+  background-color: red;
+}

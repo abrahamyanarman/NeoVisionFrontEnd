@@ -36,8 +36,6 @@ export class RequestNewLoanComponent implements OnInit {
   startDate = new Date();
   loanRequest: LoanRequest;
 
-   ELEMENT_DATA: AmortizationShedule[];
-
     constructor(private loanService: LoanServiceService,
                 public datepipe: DatePipe,
                 public dialog: MatDialog,

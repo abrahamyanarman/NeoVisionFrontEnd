@@ -32,4 +32,8 @@ export class LoanServiceService {
     return this.http.post<any>(ApplicationService.url + 'api/loan/createLoanRequest?created='+loanRequest.crated+
       '&preferredPaymentDate='+loanRequest.preferredPaymentDate, loanRequest, {headers: this.header});
   }
+
+  getLoanRequests(username: string): Observable<LoanRequest[]> {
+    return this.http.get<any>(ApplicationService.url + 'api/loan/getLoanrequests?username='+username, {headers: this.header});
+  }
 }

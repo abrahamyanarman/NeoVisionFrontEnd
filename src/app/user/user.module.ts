@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {UserComponent} from './user.component';
 import {UserRouting} from './user.routing';
 import {SharedModule} from '../shared/shared.module';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {AngularMaterialModule} from '../shared/material.module';
 import {DataService} from '../admin/shared/dataservice';
 import {FormsModule} from '@angular/forms';
@@ -30,7 +30,8 @@ import { MyloansComponent } from './myloans/myloans.component';
     MatFormFieldModule
   ],
   providers: [
-    DataService
+    DataService,
+    DatePipe
   ],
   entryComponents: [ErrorDialogComponent]
 })

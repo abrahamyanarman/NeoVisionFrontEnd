@@ -18,7 +18,7 @@
   </mat-menu>
 
   <mat-menu #myloans="matMenu">
-    <button mat-menu-item>See My Loans</button>
+    <button mat-menu-item routerLink="user/loans">See My Loans</button>
     <button mat-menu-item routerLink="/user/request-new-loan">Request New Loan</button>
   </mat-menu>
 
@@ -42,9 +42,7 @@
     </mat-menu>
 
     <mat-menu #loanrequests="matMenu">
-      <button mat-menu-item>Profile</button>
-      <button mat-menu-item>Edit Profile Information</button>
-      <button mat-menu-item>Profile Settings</button>
+      <button mat-menu-item routerLink="admin/loans">See My Loans</button>
     </mat-menu>
 
     <mat-menu #loantypes="matMenu">

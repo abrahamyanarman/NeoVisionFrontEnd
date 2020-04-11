@@ -1,1 +1,68 @@
-<p>myloans works!</p>
+<div class="mat-elevation-z8" *ngIf="dataSource!==null">
+  <table mat-table [dataSource]="dataSource" >
+
+    <!-- Payment Date Column -->
+    <ng-container matColumnDef="Loan Amount" >
+      <th mat-header-cell *matHeaderCellDef> Loan Amount </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'success':element.status.name === 'APPROVED',
+      'waiting':element.status.name === 'WAITING' || element.status.name === 'REQUESTED',
+      'canceled':element.status.name === 'CANCELED'}"> {{element.preferredLoanAmount}} $</td>
+    </ng-container>
+
+    <!-- Payment Column -->
+    <ng-container matColumnDef="Loan Term">
+      <th mat-header-cell *matHeaderCellDef> Loan Term </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'success':element.status.name === 'APPROVED',
+      'waiting':element.status.name === 'WAITING' || element.status.name === 'REQUESTED',
+      'canceled':element.status.name === 'CANCELED'}"> {{element.preferredLoanTerm}} M</td>
+    </ng-container>
+
+    <!-- Principal Column -->
+    <ng-container matColumnDef="Loan Interest Rate">
+      <th mat-header-cell *matHeaderCellDef> Loan Interest Rate </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'success':element.status.name === 'APPROVED',
+      'waiting':element.status.name === 'WAITING' || element.status.name === 'REQUESTED',
+      'canceled':element.status.name === 'CANCELED'}"> {{element.preferredLoanInterestRate}} %</td>
+    </ng-container>
+
+    <!-- Interest Column -->
+    <ng-container matColumnDef="Payment Date">
+      <th mat-header-cell *matHeaderCellDef> Payment Date </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'success':element.status.name === 'APPROVED',
+      'waiting':element.status.name === 'WAITING' || element.status.name === 'REQUESTED',
+      'canceled':element.status.name === 'CANCELED'}"> {{formatDate(element.preferredPaymentDate)}} </td>
+    </ng-container>
+
+    <!-- Total Interest Column -->
+    <ng-container matColumnDef="Loan Type">
+      <th mat-header-cell *matHeaderCellDef> Loan Type </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'success':element.status.name === 'APPROVED',
+      'waiting':element.status.name === 'WAITING' || element.status.name === 'REQUESTED',
+      'canceled':element.status.name === 'CANCELED'}"> {{element.loanType.name}} </td>
+    </ng-container>
+
+    <!-- Balance Column -->
+    <ng-container matColumnDef="Crated">
+      <th mat-header-cell *matHeaderCellDef> Crated </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'success':element.status.name === 'APPROVED',
+      'waiting':element.status.name === 'WAITING' || element.status.name === 'REQUESTED',
+      'canceled':element.status.name === 'CANCELED'}"> {{formatDate(element.crated)}} </td>
+    </ng-container>
+
+    <!-- Balance Column -->
+    <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef > Status </th>
+      <td mat-cell *matCellDef="let element" [ngClass]="{'success':element.status.name === 'APPROVED',
+      'waiting':element.status.name === 'WAITING' || element.status.name === 'REQUESTED',
+      'canceled':element.status.name === 'CANCELED'}"> {{element.status.name}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <!--
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  -->
+
+</div>
