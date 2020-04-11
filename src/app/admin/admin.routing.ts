@@ -2,6 +2,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {AdminInfoComponent} from './admininfo/admininfo.component';
 import {UsersComponent} from './users/users.component';
 import {UserComponent} from './user/user.component';
+import {LoanRequestsComponent} from "./loan-requests/loan-requests.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,10 @@ const routes: Routes = [
   {
     path: 'user/:id',
     component: UserComponent
+  },
+  {
+    path: 'loans/new',
+    component: LoanRequestsComponent
   }
 ];
 

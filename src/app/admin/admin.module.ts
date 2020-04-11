@@ -6,7 +6,7 @@ import { AdminInfoComponent } from './admininfo/admininfo.component';
 import {SharedModule} from '../shared/shared.module';
 import {AngularMaterialModule} from '../shared/material.module';
 import {DataService} from './shared/dataservice';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import { UserComponent } from './user/user.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RolePopup} from './user/shared/role-popup/role-popup';
@@ -14,6 +14,7 @@ import {RegistrationService} from '../registration/shared/registration.service';
 import {CdkColumnDef} from '@angular/cdk/table';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
+import { LoanRequestsComponent } from './loan-requests/loan-requests.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
     UsersComponent,
     AdminInfoComponent,
     UserComponent,
-    RolePopup
+    RolePopup,
+    LoanRequestsComponent
   ],
   imports: [
     AdminRouting,
@@ -36,6 +38,6 @@ import {MatSlideToggleModule} from "@angular/material/slide-toggle";
   entryComponents: [
     RolePopup
   ],
-  providers: [DataService, CdkColumnDef]
+  providers: [DataService, CdkColumnDef,DatePipe]
 })
 export class AdminModule { }

@@ -36,4 +36,14 @@ export class LoanServiceService {
   getLoanRequests(username: string): Observable<LoanRequest[]> {
     return this.http.get<any>(ApplicationService.url + 'api/loan/getLoanrequests?username='+username, {headers: this.header});
   }
+
+  getLoanRequestsWithStatusRequested(): Observable<LoanRequest[]> {
+    return this.http.get<any>(ApplicationService.url + 'api/loan/getLoanRequestsWithStatusRequested', {headers: this.header});
+
+  }
+
+  updateLoanRequest(loanRequest: LoanRequest) {
+    return this.http.post<any>(ApplicationService.url + 'api/loan/updateLoanRequest?created='+loanRequest.crated+
+      '&preferredPaymentDate='+loanRequest.preferredPaymentDate, loanRequest, {headers: this.header});
+  }
 }
