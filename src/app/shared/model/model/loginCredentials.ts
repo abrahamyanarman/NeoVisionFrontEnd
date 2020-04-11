@@ -5,8 +5,4 @@ export interface LoginCredentials {
   emailMessage?: string;
 }
 
-export interface ProductCredentials {
-  productName?: string;
-  productPrice?: string;
-  productPicture?: string;
-}
+

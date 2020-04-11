@@ -131,7 +131,13 @@
             <hr class="solid">
 
             <div class="col-12">
-              <button type="button" class="btn btn-secondary">Amortization</button>
+              <button type="button" class="btn btn-secondary" (click)="generateAmortization()">Amortization</button>
+              <mat-form-field>
+                <mat-label>Choose a StartDate</mat-label>
+                <input matInput [matDatepicker]="picker" (dateChange)="startDateChange($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker [startAt]="startDate"></mat-datepicker>
+              </mat-form-field>
             </div>
           </div>
         </div>
@@ -188,4 +194,53 @@
     </div>
   </div>
 
+
+
+
+
+</div>
+<div class="mat-elevation-z8" *ngIf="showAmortization">
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Payment Date Column -->
+    <ng-container matColumnDef="Payment Date">
+      <th mat-header-cell *matHeaderCellDef> Payment Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.paymentDate}} </td>
+    </ng-container>
+
+    <!-- Payment Column -->
+    <ng-container matColumnDef="Payment">
+      <th mat-header-cell *matHeaderCellDef> Payment </th>
+      <td mat-cell *matCellDef="let element"> {{element.payment}} </td>
+    </ng-container>
+
+    <!-- Principal Column -->
+    <ng-container matColumnDef="Principal">
+      <th mat-header-cell *matHeaderCellDef> Principal </th>
+      <td mat-cell *matCellDef="let element"> {{element.principal}} </td>
+    </ng-container>
+
+    <!-- Interest Column -->
+    <ng-container matColumnDef="Interest">
+      <th mat-header-cell *matHeaderCellDef> Interest </th>
+      <td mat-cell *matCellDef="let element"> {{element.interest}} </td>
+    </ng-container>
+
+    <!-- Total Interest Column -->
+    <ng-container matColumnDef="Total Interest">
+      <th mat-header-cell *matHeaderCellDef> Total Interest </th>
+      <td mat-cell *matCellDef="let element"> {{element.totalInterest}} </td>
+    </ng-container>
+
+    <!-- Balance Column -->
+    <ng-container matColumnDef="Balance">
+      <th mat-header-cell *matHeaderCellDef> Balance </th>
+      <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
 </div>

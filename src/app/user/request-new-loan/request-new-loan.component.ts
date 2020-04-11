@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatSliderChange} from '@angular/material/slider';
 import {LoanServiceService} from "../../shared/services/loan-service.service";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatTableDataSource} from "@angular/material/table";
+import {AmortizationShedule} from "../../shared/model/model/amortizationShedule";
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-request-new-loan',
@@ -9,16 +14,32 @@ import {LoanServiceService} from "../../shared/services/loan-service.service";
 })
 export class RequestNewLoanComponent implements OnInit {
 
+  displayedColumns: string[] = ['Payment Date', 'Payment', 'Principal', 'Interest', 'Total Interest', 'Balance'];
+  dataSource = new MatTableDataSource<AmortizationShedule>();
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+
+
   loanAmount = 5000;
   loanInterest = 5.00;
   showMonthly = true;
   loanTerm = this.showMonthly ? 12 : 1;
   loanMonthlyPayment: number;
+  showAmortization = false;
+  startDate = new Date();
 
-  constructor(private loanService: LoanServiceService) { }
+   ELEMENT_DATA: AmortizationShedule[];
+
+    constructor(private loanService: LoanServiceService,
+                public datepipe: DatePipe) {
+      this.startDate.setMonth(this.startDate.getMonth() + 1);
+    }
 
   ngOnInit() {
     this.getLoanMonthlyPaymentWithUniformPayments(this.loanAmount, this.loanInterest, this.loanTerm);
+
+
+    this.dataSource.paginator = this.paginator;
   }
 
   formatLabel(value: number) {
@@ -42,9 +63,9 @@ export class RequestNewLoanComponent implements OnInit {
     }
   }
 
-  onSliderToggleChange(){
+  onSliderToggleChange() {
     this.showMonthly = !this.showMonthly;
-    if (this.showMonthly){
+    if (this.showMonthly) {
       this.loanTerm = this.loanTerm * 12;
     } else {
       this.loanTerm = Math.round(this.loanTerm / 12);
@@ -57,6 +78,14 @@ export class RequestNewLoanComponent implements OnInit {
     this.loanService.getLoanMonthlyPaymentWithUniformPayments(loanAmount, loanIntrest, loanTerm)
       .subscribe(value => {
         this.loanMonthlyPayment = value.monthlyPayment;
+      });
+  }
+
+  getLoanPaymentSchedule(loanAmount: number, loanIntrest: number, loanTerm: number, startDate: string) {
+    console.log(startDate);
+    this.loanService.getLoanPaymentSchedule(loanAmount, loanIntrest, loanTerm, startDate).subscribe(values => {
+        this.dataSource = new MatTableDataSource<AmortizationShedule>(values);
+        console.log(values);
       });
   }
 
@@ -74,5 +103,19 @@ export class RequestNewLoanComponent implements OnInit {
 
   getTotalPayedInterest(): number {
     return Math.round(((this.loanMonthlyPayment * this.loanTerm) - this.loanAmount) * 100) / 100;
+  }
+
+  generateAmortization() {
+      this.showAmortization = !this.showAmortization;
+      if (this.showAmortization) {
+        this.getLoanPaymentSchedule(this.loanAmount, this.loanInterest, this.loanTerm, this.datepipe.transform(this.startDate, 'yyyy/MM/dd'));
+      }
+  }
+
+  startDateChange($event: MatDatepickerInputEvent<never>) {
+    console.log(this.startDate);
+    this.startDate = $event.value;
+    console.log(this.startDate);
+
   }
 }
