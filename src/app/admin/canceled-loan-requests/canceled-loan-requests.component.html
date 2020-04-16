@@ -94,21 +94,6 @@
       'canceled':element.status.name === 'CANCELED'}">
 
 
-        <button class="btn btn-outline-success" (click)="setEditMode(element.id)" id="edit{{element.id}}">
-          Edit
-        </button>
-        <button class="btn btn-outline-success" (click)="saveChanges(element.id)" id="save{{element.id}}" style="display: none">
-          Save
-        </button>
-        <button class="btn btn-outline-success" (click)="approve(element.id)" id="approve{{element.id}}">
-          Approve
-        </button>
-        <button class="btn btn-outline-danger" (click)="cancel(element.id)" id="cancel{{element.id}}">
-          Cancel
-        </button>
-        <button class="btn btn-outline-secondary" (click)="setWaiting(element.id)" id="wait{{element.id}}">
-         Set Waiting
-        </button>
       </td>
     </ng-container>
 

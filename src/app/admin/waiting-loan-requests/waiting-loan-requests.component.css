@@ -1,6 +1,3 @@
-table {
-  width: 100%;
-}
 .success{
   background-color: #7cff78;
 }
@@ -9,4 +6,7 @@ table {
 }
 .canceled{
   background-color: #ff5959;
+}
+table {
+  width: 100%;
 }

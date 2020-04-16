@@ -2,13 +2,13 @@ table {
   width: 100%;
 }
 .success{
-  background-color: darkgreen;
+  background-color: #7cff78;
 }
 .waiting{
-  background-color: peru;
+  background-color: #fac27d;
 }
 .canceled{
-  background-color: red;
+  background-color: #ff5959;
 }
 .pencil{
   position: relative;
@@ -37,4 +37,12 @@ table {
 }
 .check:before {
   content: '\e033';
+}
+
+button{
+  margin: 5px;
+}
+
+td>div>input{
+  max-width: 100px;
 }

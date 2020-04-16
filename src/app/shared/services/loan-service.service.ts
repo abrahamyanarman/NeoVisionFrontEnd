@@ -4,6 +4,8 @@ import {ApplicationService} from "./application.service";
 import {Observable} from "rxjs";
 import {AmortizationShedule} from "../model/model/amortizationShedule";
 import {LoanRequest} from "../model/model/loanRequest";
+import {DatePipe} from "@angular/common";
+import {LoanRequestStatus} from "../model/model/loanRequestStatus";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class LoanServiceService {
   private readonly header: HttpHeaders;
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,private datepipe: DatePipe) {
     this.header = new HttpHeaders({
       'Content-Type': 'application/json'
     });
@@ -43,7 +45,18 @@ export class LoanServiceService {
   }
 
   updateLoanRequest(loanRequest: LoanRequest) {
+    loanRequest.crated = this.datepipe.transform(loanRequest.crated, 'yyyy-MM-dd');
+    loanRequest.preferredPaymentDate = this.datepipe.transform(loanRequest.preferredPaymentDate, 'yyyy-MM-dd');
     return this.http.post<any>(ApplicationService.url + 'api/loan/updateLoanRequest?created='+loanRequest.crated+
       '&preferredPaymentDate='+loanRequest.preferredPaymentDate, loanRequest, {headers: this.header});
+  }
+
+  updateLoanRequestStatusByUser(loanRequest: LoanRequest){
+    return this.http.post<any>(ApplicationService.url + 'api/loan/updateLoanRequestStatusByUser', loanRequest, {headers: this.header});
+  }
+
+  getLoanRequestsWithStatus(status: LoanRequestStatus): Observable<LoanRequest[]> {
+    // @ts-ignore
+    return this.http.get<any>(ApplicationService.url + 'api/loan/getLoanRequestsWithStatus?status='+status, {headers: this.header});
   }
 }

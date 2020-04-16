@@ -3,6 +3,7 @@ import {LoanType} from "./loanType";
 import {LoanRequestStatus} from "./loanRequestStatus";
 
 export class LoanRequest {
+  id: number;
   user: User;
   preferredLoanAmount: number;
   preferredLoanTerm: number;

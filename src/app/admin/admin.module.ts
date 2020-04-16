@@ -15,6 +15,9 @@ import {CdkColumnDef} from '@angular/cdk/table';
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import { LoanRequestsComponent } from './loan-requests/loan-requests.component';
+import { WaitingLoanRequestsComponent } from './waiting-loan-requests/waiting-loan-requests.component';
+import { ApprovedLoanRequestsComponent } from './approved-loan-requests/approved-loan-requests.component';
+import { CanceledLoanRequestsComponent } from './canceled-loan-requests/canceled-loan-requests.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { LoanRequestsComponent } from './loan-requests/loan-requests.component';
     AdminInfoComponent,
     UserComponent,
     RolePopup,
-    LoanRequestsComponent
+    LoanRequestsComponent,
+    WaitingLoanRequestsComponent,
+    ApprovedLoanRequestsComponent,
+    CanceledLoanRequestsComponent
   ],
   imports: [
     AdminRouting,

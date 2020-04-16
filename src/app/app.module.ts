@@ -10,7 +10,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {AppRouting} from './app.routing';
 import {BrowserAnimationsModule, NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {CommonModule} from '@angular/common';
+import {CommonModule, DatePipe} from '@angular/common';
 import {ApplicationService} from './shared/services/application.service';
 import {AngularMaterialModule} from './shared/material.module';
 import {CheckToken} from './shared/guard/checkToken';
@@ -59,6 +59,7 @@ import {NgApexchartsModule} from "ng-apexcharts";
     CheckToken,
     CookieService,
     EditModeService,
+    DatePipe,
     DataService,
     {
       provide: HTTP_INTERCEPTORS ,

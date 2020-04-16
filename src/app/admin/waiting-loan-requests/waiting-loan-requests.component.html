@@ -93,7 +93,6 @@
       'waiting':element.status.name === 'WAITING' || element.status.name === 'REQUESTED',
       'canceled':element.status.name === 'CANCELED'}">
 
-
         <button class="btn btn-outline-success" (click)="setEditMode(element.id)" id="edit{{element.id}}">
           Edit
         </button>
@@ -105,9 +104,6 @@
         </button>
         <button class="btn btn-outline-danger" (click)="cancel(element.id)" id="cancel{{element.id}}">
           Cancel
-        </button>
-        <button class="btn btn-outline-secondary" (click)="setWaiting(element.id)" id="wait{{element.id}}">
-         Set Waiting
         </button>
       </td>
     </ng-container>
