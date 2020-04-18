@@ -8,8 +8,8 @@ export interface Loan {
   loanAmount: number;
   loanTerm: number;
   loanInterestRate: number;
-  createDate: Date;
+  createDate: string;
   loanType: LoanType;
-  amortiazation?: AmortizationShedule;
+  amortiazation: AmortizationShedule[];
   user?: User;
 }

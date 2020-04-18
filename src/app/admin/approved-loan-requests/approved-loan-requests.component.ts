@@ -43,7 +43,10 @@ export class ApprovedLoanRequestsComponent implements OnInit {
   }
 
   createLoan(id: any) {
-
+    this.loanService.createLoan(this.loanRequests.get(id)).subscribe(value => {
+      console.log(value);
+      this.getLoanRequests()
+    })
   }
 
   cancel(id: any) {

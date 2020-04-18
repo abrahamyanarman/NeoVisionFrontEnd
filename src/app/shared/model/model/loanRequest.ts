@@ -12,4 +12,5 @@ export class LoanRequest {
   loanType: LoanType;
   crated: string;
   status: LoanRequestStatus;
+  preferredStartDate: string;
 }

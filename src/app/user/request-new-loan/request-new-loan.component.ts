@@ -136,6 +136,7 @@ export class RequestNewLoanComponent implements OnInit {
       this.loanRequest.preferredLoanTerm = this.loanTerm;
       this.loanRequest.preferredPaymentDate = this.datepipe.transform(this.startDate, 'yyyy/MM/dd');
       this.loanRequest.status = LoanRequestStatus.REQUESTED;
+      this.loanRequest.preferredStartDate =  this.datepipe.transform(this.startDate, 'yyyy/MM/dd');
       this.loanRequest.user = JSON.parse(localStorage.getItem(ApplicationService.me));
       this.loanService.sendLoanRequest(this.loanRequest).subscribe(value => {
         console.log(value);

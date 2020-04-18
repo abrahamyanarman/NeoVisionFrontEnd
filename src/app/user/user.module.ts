@@ -12,13 +12,17 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
 import {MatFormField, MatFormFieldModule} from "@angular/material/form-field";
 import { MyloansComponent } from './myloans/myloans.component';
+import { MyActiveLoansComponent } from './my-active-loans/my-active-loans.component';
+import { LoanScheduleDialogComponent } from './my-active-loans/loan-schedule-dialog/loan-schedule-dialog.component';
 
 @NgModule({
   declarations: [
     UserComponent,
     UserinfoComponent,
     ErrorDialogComponent,
-    MyloansComponent],
+    MyloansComponent,
+    MyActiveLoansComponent,
+    LoanScheduleDialogComponent],
   imports: [
     UserRouting,
     SharedModule,
@@ -33,7 +37,7 @@ import { MyloansComponent } from './myloans/myloans.component';
     DataService,
     DatePipe
   ],
-  entryComponents: [ErrorDialogComponent]
+  entryComponents: [ErrorDialogComponent,LoanScheduleDialogComponent]
 })
 export class UserModule {
 }

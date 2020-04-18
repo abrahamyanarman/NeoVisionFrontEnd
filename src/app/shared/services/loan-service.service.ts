@@ -6,6 +6,7 @@ import {AmortizationShedule} from "../model/model/amortizationShedule";
 import {LoanRequest} from "../model/model/loanRequest";
 import {DatePipe} from "@angular/common";
 import {LoanRequestStatus} from "../model/model/loanRequestStatus";
+import {Loan} from "../model/model/loan";
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +33,7 @@ export class LoanServiceService {
 
   sendLoanRequest(loanRequest: LoanRequest) {
     return this.http.post<any>(ApplicationService.url + 'api/loan/createLoanRequest?created='+loanRequest.crated+
-      '&preferredPaymentDate='+loanRequest.preferredPaymentDate, loanRequest, {headers: this.header});
+      '&preferredPaymentDate='+loanRequest.preferredPaymentDate+'&preferredStartDate='+loanRequest.preferredStartDate, loanRequest, {headers: this.header});
   }
 
   getLoanRequests(username: string): Observable<LoanRequest[]> {
@@ -58,5 +59,23 @@ export class LoanServiceService {
   getLoanRequestsWithStatus(status: LoanRequestStatus): Observable<LoanRequest[]> {
     // @ts-ignore
     return this.http.get<any>(ApplicationService.url + 'api/loan/getLoanRequestsWithStatus?status='+status, {headers: this.header});
+  }
+
+  createLoan(loanRequest: LoanRequest) {
+    loanRequest.crated = this.datepipe.transform(loanRequest.crated, 'yyyy/MM/dd');
+    loanRequest.preferredPaymentDate = this.datepipe.transform(loanRequest.preferredPaymentDate, 'yyyy/MM/dd');
+    loanRequest.preferredStartDate = this.datepipe.transform(loanRequest.preferredStartDate, 'yyyy/MM/dd');
+    return this.http.post<any>(ApplicationService.url + 'api/loan/createLoan?preferredStartDate='+loanRequest.preferredStartDate+
+      '&preferredPaymentDate='+loanRequest.preferredPaymentDate, loanRequest, {headers: this.header});
+  }
+
+  getLoans(username: string): Observable<Loan[]>  {
+    return this.http.get<Loan[]>(ApplicationService.url + 'api/loan/getLoans?username='+username, {headers: this.header});
+
+  }
+
+  getLoanSchedule(id: any):Observable<AmortizationShedule[]> {
+    return this.http.get<any>(ApplicationService.url + 'api/loan/getLoanSchedule/'+id, {headers: this.header});
+
   }
 }
